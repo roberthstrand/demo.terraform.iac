@@ -66,7 +66,7 @@ resource "azurerm_traffic_manager_profile" "terraform" {
     }
 }
 # Azure Traffic Manager, endpoint in Azure
-resource "azurerm_traffic_manager_endpoint" "eu" {
+resource "azurerm_traffic_manager_endpoint" "eu2" {
     name                = "tm-${var.deployname}-endpoint-eu"
     resource_group_name = "${azurerm_resource_group.terraform.name}"
     profile_name        = "${azurerm_traffic_manager_profile.terraform.name}"
