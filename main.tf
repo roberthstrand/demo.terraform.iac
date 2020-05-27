@@ -6,16 +6,16 @@ terraform {
 }
 # Create resource group for our demo
 resource "azurerm_resource_group" "terraform" {
-    name     = "rg-${var.deployname}"
-    location = "${var.location-eu}"
+    name     = "${var.deployname}-rg"
+    location = var.location-eu
 }
 # Creating our container groups,
 # first one in EU...
 resource "azurerm_container_group" "eu" {
     # Container group argument
     name                = "cont-${var.deployname}-eu"
-    location            = "${var.location-eu}"
-    resource_group_name = "${azurerm_resource_group.terraform.name}"
+    location            = var.location-eu
+    resource_group_name = azurerm_resource_group.terraform.name
     ip_address_type     = "public"
     os_type             = "Linux"
     # The container itself
@@ -34,8 +34,8 @@ resource "azurerm_container_group" "eu" {
 resource "azurerm_container_group" "us" {
     # Container group argument
     name                = "cont-${var.deployname}-us"
-    location            = "${var.location-us}"
-    resource_group_name = "${azurerm_resource_group.terraform.name}"
+    location            = var.location-us
+    resource_group_name = azurerm_resource_group.terraform.name
     ip_address_type     = "public"
     os_type             = "Linux"
     # The container itself
@@ -53,7 +53,7 @@ resource "azurerm_container_group" "us" {
 # Azure Traffic Manager, profile
 resource "azurerm_traffic_manager_profile" "terraform" {
     name                    = "tm-profile-${var.deployname}"
-    resource_group_name     = "${azurerm_resource_group.terraform.name}"
+    resource_group_name     = azurerm_resource_group.terraform.name
     traffic_routing_method  = "Geographic"
     dns_config {
         relative_name       = "tm-${var.deployname}-dns"
@@ -68,19 +68,19 @@ resource "azurerm_traffic_manager_profile" "terraform" {
 # Azure Traffic Manager, endpoint in Azure
 resource "azurerm_traffic_manager_endpoint" "eu" {
     name                = "tm-${var.deployname}-endpoint-eu"
-    resource_group_name = "${azurerm_resource_group.terraform.name}"
-    profile_name        = "${azurerm_traffic_manager_profile.terraform.name}"
+    resource_group_name = azurerm_resource_group.terraform.name
+    profile_name        = azurerm_traffic_manager_profile.terraform.name
     type                = "externalEndpoints"
-    target              = "${azurerm_container_group.eu.ip_address}"
+    target              = azurerm_container_group.eu.ip_address
     geo_mappings        = ["geo-eu"]
     weight              = 100
 }
 resource "azurerm_traffic_manager_endpoint" "us" {
     name                = "tm-${var.deployname}-endpoint-us"
-    resource_group_name = "${azurerm_resource_group.terraform.name}"
-    profile_name        = "${azurerm_traffic_manager_profile.terraform.name}"
+    resource_group_name = azurerm_resource_group.terraform.name
+    profile_name        = azurerm_traffic_manager_profile.terraform.name
     type                = "externalEndpoints"
-    target              = "${azurerm_container_group.us.ip_address}"
+    target              = azurerm_container_group.us.ip_address
     geo_mappings        = ["us"]
     weight              = 100
 }
@@ -90,5 +90,5 @@ resource "azurerm_dns_cname_record" "terraform" {
     zone_name           = "terraform.skyarkitektur.no"
     resource_group_name = "demo"
     ttl                 = 300
-    record              = "${azurerm_traffic_manager_profile.terraform.fqdn}"
+    record              = azurerm_traffic_manager_profile.terraform.fqdn
 }
