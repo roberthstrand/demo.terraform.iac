@@ -7,6 +7,7 @@ terraform {
 # Create resource group for our demo
 resource "azurerm_resource_group" "terraform" {
     name     = "${var.deployname}-rg"
+<<<<<<< HEAD
     location = var.location-eu
 }
 # Creating our container groups,
@@ -91,4 +92,32 @@ resource "azurerm_dns_cname_record" "terraform" {
     resource_group_name = "demo"
     ttl                 = 300
     record              = azurerm_traffic_manager_profile.terraform.fqdn
+=======
+    location = var.location
+}
+
+resource "azurerm_network_security_group" "terraform" {
+  name                = "${var.deployname}-nsg"
+  location            = azurerm_resource_group.terraform.location
+  resource_group_name = azurerm_resource_group.terraform.name
+}
+
+resource "azurerm_virtual_network" "terraform" {
+  name                = "${var.deployname}-vnet"
+  location            = azurerm_resource_group.terraform.location
+  resource_group_name = azurerm_resource_group.terraform.name
+  address_space       = ["10.0.0.0/16"]
+  subnet {
+    name           = "subnet1"
+    address_prefix = "10.0.1.0/24"
+  }
+
+  subnet {
+    name           = "subnet2"
+    address_prefix = "10.0.2.0/24"
+    security_group = azurerm_network_security_group.terraform.id
+  }
+
+  tags = var.tags
+>>>>>>> eba9404386c2d3ab874cd22c3d35658985f51dcf
 }
