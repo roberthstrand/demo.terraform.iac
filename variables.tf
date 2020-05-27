@@ -1,9 +1,13 @@
 variable "deployname" {
-    default = "tf-iac"
+    default = "demo-terraform-iac"
 }
-variable "location-eu" {
+variable "location" {
     default  = "West Europe"
 }
-variable "location-us" {
-    default  = "East US"
+
+variable tags {
+	default = {
+		environment = "demo"
+		source      = "terraform"
+	}
 }
