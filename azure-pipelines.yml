@@ -1,0 +1,9 @@
+# Terraform Azure DevOps pipeline
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
