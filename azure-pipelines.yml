@@ -25,3 +25,8 @@ steps:
     provider: 'azurerm'
     command: 'plan'
     environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription – MPN(7e6ecd0c-3d73-49d9-b57f-f90f1dc701fb)'
+- task: TerraformTaskV1@0
+inputs:
+  provider: 'azurerm'
+  command: 'apply --auto-approve'
+  environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription – MPN(7e6ecd0c-3d73-49d9-b57f-f90f1dc701fb)'
