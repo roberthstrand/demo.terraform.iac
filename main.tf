@@ -31,5 +31,11 @@ resource "azurerm_virtual_network" "terraform" {
     security_group = azurerm_network_security_group.terraform.id
   }
 
+  subnet {
+    name           = "subnet2"
+    address_prefix = "10.0.2.0/24"
+    security_group = azurerm_network_security_group.terraform.id
+  }
+
   tags = var.tags
 }
