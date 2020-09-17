@@ -10,8 +10,8 @@ steps:
 - checkout: self
 - task: Terraform@2
   inputs:
-    TemplatePath: $(System.DefaultWorkingDirectory)
-    Arguments: 'plan'
+    TemplatePath: '$(System.DefaultWorkingDirectory)'
+    Arguments: 'apply --auto-approve'
     InstallTerraform: true
     UseAzureSub: true
     ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
