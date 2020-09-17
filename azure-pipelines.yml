@@ -10,7 +10,7 @@ steps:
 - checkout: self
 - task: TerraformInstaller@0
   inputs:
-    terraformVersion: '0.13.2'
+    terraformVersion: '0.13.3'
 - task: TerraformTaskV1@0
   inputs:
     provider: 'azurerm'
