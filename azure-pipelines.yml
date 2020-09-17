@@ -27,3 +27,8 @@ steps:
     provider: 'azurerm'
     command: 'apply'
     environmentServiceNameAzureRM: 'Visual Studio Enterprise Subscription – MPN(7e6ecd0c-3d73-49d9-b57f-f90f1dc701fb)'
+    backendServiceArm: 'Visual Studio Enterprise Subscription – MPN(7e6ecd0c-3d73-49d9-b57f-f90f1dc701fb)'
+    backendAzureRmResourceGroupName: 'demo-services-rg'
+    backendAzureRmStorageAccountName: 'rsterraformdemo'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'tf.state'
