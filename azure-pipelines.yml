@@ -10,7 +10,7 @@ steps:
 - checkout: self
 - task: Terraform@2
   inputs:
-    TemplatePath: $(Agent.WorkFolder)
+    TemplatePath: $(System.DefaultWorkingDirectory)
     Arguments: 'plan'
     InstallTerraform: true
     UseAzureSub: true
