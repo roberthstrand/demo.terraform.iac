@@ -19,8 +19,8 @@ steps:
     backendServiceArm: 'Visual Studio Enterprise Subscription – MPN(7e6ecd0c-3d73-49d9-b57f-f90f1dc701fb)'
     backendAzureRmResourceGroupName: 'demo-services-rg'
     backendAzureRmStorageAccountName: 'rsterraformdemo'
-    backendAzureRmContainerName: 'terraform'
-    backendAzureRmKey: 'state'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'tf.state'
 - task: TerraformTaskV1@0
   name: 'terraform_apply'
   inputs:
