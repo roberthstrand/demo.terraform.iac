@@ -1,6 +1,12 @@
 # Define the provider as Azure
+terraform {
+  required_providers {
+    azurerm = {
+      version = "=2.51.0"
+    }
+  }
+}
 provider "azurerm" {
-  version = "=2.51.0"
   features {}
 }
 # Create resource group for our demo
